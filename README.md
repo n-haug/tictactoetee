@@ -2,4 +2,4 @@
 
 Tic Tac Toe with a little twist!
 
-![Website Header Screenshot](https://github.com/n-haug/tictactoetee/assets/91656656/1fb97bdf-462e-478f-8643-95665865d678)
+![Screenshot Website Header](https://github.com/n-haug/tictactoetee/assets/91656656/decd300a-2209-495f-ab4e-f0c529020f90)
