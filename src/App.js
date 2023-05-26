@@ -11,7 +11,16 @@ function Square({value, onSquareClick}) {
 }
 
 //takes three props, can be called with updated squares array, when move is made
-function Board( {xIsNext, squares, onPlay}) {
+function Board( {xIsNext, squares, onPlay, size} ) {
+  const sizeBoard = Array(size)
+    for (let i = 0; i < size; i++) {
+      const sizeSquares = Array(size);
+        for (let j=0; j<size; j++) {
+          sizeSquares[j] = <Square value={squares[i*size + j]} onSquareClick={() => handleClick(i * size + j)} />;
+        }
+        sizeBoard[i] = <div className="board-row">{sizeSquares}</div>
+    }
+
     //update squares array holding state
   function handleClick(i) { 
     //check if square is already filled or a player has won --> state not updated if already filled
@@ -50,31 +59,8 @@ function Board( {xIsNext, squares, onPlay}) {
         <h1>Play some Tic Tac Toe Tee</h1>
       </header>
         <div className="status">{status}</div>
-        <div className="board-row">
-          <Square value={squares[0]} onSquareClick={() => handleClick(0)} /> 
-          <Square value={squares[1]} onSquareClick={() => handleClick(1)} />
-          <Square value={squares[2]} onSquareClick={() => handleClick(2)} />
-          <Square value={squares[3]} onSquareClick={() => handleClick(3)} />
+        {sizeBoard}
         </div>
-        <div className="board-row">
-          <Square value={squares[4]} onSquareClick={() => handleClick(4)} />
-          <Square value={squares[5]} onSquareClick={() => handleClick(5)} />
-          <Square value={squares[6]} onSquareClick={() => handleClick(6)} />
-          <Square value={squares[7]} onSquareClick={() => handleClick(7)} />
-        </div>
-        <div className="board-row">
-          <Square value={squares[8]} onSquareClick={() => handleClick(8)} />
-          <Square value={squares[9]} onSquareClick={() => handleClick(9)} />
-          <Square value={squares[10]} onSquareClick={() => handleClick(10)} />
-          <Square value={squares[11]} onSquareClick={() => handleClick(11)} />
-        </div>
-        <div className="board-row">
-          <Square value={squares[12]} onSquareClick={() => handleClick(12)} />
-          <Square value={squares[13]} onSquareClick={() => handleClick(13)} />
-          <Square value={squares[14]} onSquareClick={() => handleClick(14)} />
-          <Square value={squares[15]} onSquareClick={() => handleClick(15)} />
-        </div>
-    </div>
   );
 }
 
@@ -82,8 +68,8 @@ function Board( {xIsNext, squares, onPlay}) {
 //renders Board component
 //aditional divs --> game information added
 export default function Game() {
-    //state variable history, default: array of 9 nulls; useState() declares squares state variable, initially set to this array
-  const [history, setHistory] = useState([Array(12).fill(null)]); 
+    //state variable history, default: array of 16 nulls; useState() declares squares state variable, initially set to this array
+  const [history, setHistory] = useState([Array(16).fill(null)]); 
   //keep track which step user is viewing, default 0
   const [currentMove, setCurrentMove] = useState(0);
   //each time player moves, xIsNext is flipped to determine who goes next, based on currentMove
@@ -130,7 +116,7 @@ export default function Game() {
     //prop moves passed to show buttons representing past moves
     <div className="game">
       <div className="game-board">
-        <Board xIsNext={xIsNext} squares={currentSquares} onPlay={handlePlay} />
+        <Board xIsNext={xIsNext} squares={currentSquares} onPlay={handlePlay}  size={4} />
       </div>
       <div className="game-info">
         <ol>{moves}</ol>
